@@ -26,8 +26,6 @@ public class JoinMapper extends Mapper<LongWritable, Text, Text, IntWritable>{
 			  String[] columns = value.toString().split(Pattern.quote("::"),4);
 			  if (columns != null && columns.length > 3) {
 			   userjoinoccupation ujr = new userjoinoccupation();
-			   //System.out.println(columns[0]);
-			   //System.out.println(columns[2]);
 			   ujr.setuserId(Integer.parseInt(columns[0]));
 			   ujr.setrating(Integer.parseInt(columns[2]));
 			   ujr.setoccupation(OccupationMap.get(UserMap.get(ujr.getuserId())));
@@ -57,15 +55,12 @@ public class JoinMapper extends Mapper<LongWritable, Text, Text, IntWritable>{
 					  String[] userproperty = line.toString().split(Pattern.quote("::"),5);
 					  Integer userid = Integer.valueOf(userproperty[0]);
 					  Integer occupationid = Integer.valueOf(userproperty[3]);
-					  System.out.println(userid);
-					  System.out.println(occupationid);
 				  	  UserMap.put(userid, occupationid);
 				  }
 		    } catch (IOException f) {
 		        System.out.println(userdictionary + " does not exist");
 		      } finally {
 		          if (reader != null) {
-		              // again, a resource is involved, so try-catch another time
 		              try {
 		                  reader.close();
 		              } catch (IOException e) {
@@ -84,15 +79,12 @@ public class JoinMapper extends Mapper<LongWritable, Text, Text, IntWritable>{
 						  String[] occupation = line.toString().split(Pattern.quote(":"),2);
 						  Integer occupationid = Integer.valueOf(occupation[0]);
 						  String occupationvalue = occupation[1];
-						  System.out.println(occupationid);
-						  System.out.println(occupationvalue);
 					  	  OccupationMap.put(occupationid, occupationvalue);
 					  }
 			    } catch (IOException f) {
 			        System.out.println(occupationdictionary + " does not exist");
 			      } finally {
 			          if (br != null) {
-			              // again, a resource is involved, so try-catch another time
 			              try {
 			                  br.close();
 			              } catch (IOException e) {
